@@ -5,4 +5,7 @@
 struct info {
 	char index[2];
     int arrival;
+    int priority;
+    int age;
+    int cpuTime;
 };

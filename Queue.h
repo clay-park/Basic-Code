@@ -7,7 +7,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Scheduler.h"
-struct Node {
+struct NodeTag {
 	struct info data;
-	struct Node *next;
+	Node *next;
+}typedef Node;
+
+struct LinkedQueue {
+	Node *front;
+	Node *back;
+	unsigned int size;
 };
