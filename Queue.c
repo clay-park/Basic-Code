@@ -23,3 +23,27 @@ q->size--;
 free(temp);
 
 }
+
+void addToBack(struct LinkedQueue *q, struct info a){
+    if(q->front == NULL){
+        q->front = (Node *) malloc(sizeof(Node));
+        q->front->data = a;
+        q->front->next = NULL;
+        q->back = q->front;
+    } else {
+        q->back->next =(Node *) malloc(sizeof(Node));
+        q->back->next->data = a;
+        q->back->next->next = NULL;
+        q->back = q->back->next;
+    }
+
+
+    q->size++;
+}
+int isEmpty(struct LinkedQueue *q){
+if(q->size == 0){
+    return EXIT_SUCCESS;
+} else{
+return EXIT_FAILURE;
+} 
+}
