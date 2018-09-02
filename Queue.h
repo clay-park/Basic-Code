@@ -1,3 +1,6 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+
 /**
  * @file Queue.h
  * @author Clay D Park
@@ -7,13 +10,25 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Scheduler.h"
-struct NodeTag {
+typedef struct Node{
 	struct info data;
-	Node *next;
-}typedef Node;
+	struct Node *next;
+}Node;
 
 struct LinkedQueue {
 	Node *front;
 	Node *back;
 	unsigned int size;
 };
+
+void CreateQueue(struct LinkedQueue *q);
+
+struct info getFrontInfo(struct LinkedQueue *q);
+
+void removeLinked(struct LinkedQueue *q);
+
+void addToBack(struct LinkedQueue *q, struct info a);
+
+int isEmpty(struct LinkedQueue *q);
+
+#endif
