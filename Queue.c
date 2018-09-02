@@ -5,7 +5,7 @@ void CreateQueue(struct LinkedQueue *q){
     q->back = NULL;
     q->size = 0;
 }
-
+//Test
 struct info getFrontInfo(struct LinkedQueue *q){
 return q-> front ->data;
 }
