@@ -6,7 +6,8 @@
 #include <stdbool.h>
 
 struct info {
-	char *index;
+	char index;
+    int indexNumber;
     int arrival;
     int priority;
     int age;
