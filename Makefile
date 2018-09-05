@@ -1,12 +1,11 @@
-#handles overall for regular method
-all: Scheduler
+# A makefile with explicit rules for everything we need to build.
 
-
-#cleans and then compiles regular
-scheduler:clean
-	gcc  -Wall -std=c99  Scheduler.c Queue.c -o Scheduler
-
-clean:
-	rm -f scheduler
-	rm -f *.o
-	rm -f output.txt
+# Rebuild the expecutable if one of the objects changes.
+CC = gcc
+# General Build commands
+CFLAGS = -Wall -std=c99
+#sets up hangman
+Scheduler: Scheduler.o Queue.o
+Scheduler.o: Scheduler.h Scheduler.h
+#handles the worldsit object
+Queue.o: Queue.h

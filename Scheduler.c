@@ -3,10 +3,10 @@
 
 int main(){
 int i = 0;
-struct LinkedQueue *q1 = NULL;
-struct LinkedQueue *q2 = NULL;
-struct LinkedQueue *q3 = NULL;
-struct LinkedQueue *q4 = NULL;
+struct LinkedQueue *q1 = (struct LinkedQueue *)malloc(sizeof(struct LinkedQueue));
+struct LinkedQueue *q2 = (struct LinkedQueue *)malloc(sizeof(struct LinkedQueue));
+struct LinkedQueue *q3 = (struct LinkedQueue *)malloc(sizeof(struct LinkedQueue));
+struct LinkedQueue *q4 = (struct LinkedQueue *)malloc(sizeof(struct LinkedQueue));
 CreateQueue(q1);
 CreateQueue(q2);
 CreateQueue(q3);
@@ -21,25 +21,28 @@ int arrival;
 int priority;
 int age;
 int cpuTime;
-int runs;
 scanf("%s", fileName);
 FILE *fp=fopen(fileName, "r");
-while(!feof(fileName)){
-    fscanf(fp, "%c%d %d %d %d %d %d%[\n]", &index, &indexNumber, &arrival, &priority, &age, &cpuTime, &runs);
+while(!feof(fp)){
+    fscanf(fp, "%c%d %d %d %d %d%*[\n]", &index, &indexNumber, &arrival, &priority, &age, &cpuTime);
     everything[amount].index = index;
     everything[amount].indexNumber = indexNumber;
     everything[amount].arrival = arrival;
     everything[amount].priority = priority;
     everything[amount].age = age;
     everything[amount].cpuTime = cpuTime;
-    everything[amount].runs = runs;
-    if(amount = capacity - 1){
+    // printf("%c%d %d %d %d %d\n",everything[amount].index,everything[amount].indexNumber,everything[amount].arrival,everything[amount].priority,everything[amount].age,everything[amount].cpuTime);
+    amount++;
+    if(amount == capacity - 1){
         capacity = capacity * 2;
-        everything = realloc(everything, capacity);
+        everything = realloc(everything, capacity * sizeof(struct info));
     }
 }
-//scanf
-
+            // addToBack(q1,everything[0]);
+            // addToBack(q1,everything[1]);
+            // printf("%c%d %d %d %d %d\n",getFrontInfo(q1).index,getFrontInfo(q1).indexNumber,getFrontInfo(q1).arrival,getFrontInfo(q1).priority,getFrontInfo(q1).age,getFrontInfo(q1).cpuTime);
+            // removeLinked(q1);
+            // printf("%c%d %d %d %d %d\n",getFrontInfo(q1).index,getFrontInfo(q1).indexNumber,getFrontInfo(q1).arrival,getFrontInfo(q1).priority,getFrontInfo(q1).age,getFrontInfo(q1).cpuTime);
 while(isEmpty(q1) != 0 && isEmpty(q2) != 0 && isEmpty(q3) != 0){
     for(int j = 0; j < amount; j++){
         if(everything[j].priority == 5 && arrival == i){

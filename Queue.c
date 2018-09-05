@@ -5,7 +5,6 @@ void CreateQueue(struct LinkedQueue *q){
     q->back = NULL;
     q->size = 0;
 }
-//Test
 struct info getFrontInfo(struct LinkedQueue *q){
 return q-> front ->data;
 }
@@ -14,13 +13,13 @@ void removeLinked(struct LinkedQueue *q){
 Node *temp = q->front;
 q->front = q->front->next;
 q->size--;
-free(temp ->data.index);
 free(temp);
 
 }
 
 void addToBack(struct LinkedQueue *q, struct info a){
     if(q->front == NULL){
+        // printf("%c%d %d %d %d %d\n",a.index,a.indexNumber,a.arrival,a.priority,a.age,a.cpuTime);
         q->front = (Node *) malloc(sizeof(Node));
         q->front->data = a;
         q->front->next = NULL;
