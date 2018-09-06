@@ -8,6 +8,7 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
         removeLinked(q2);
         temp.runs++;
         addToBack(q2, temp);
+        //CURRENT ERROR IS IN HERE
         while (getFrontInfo(q2).indexNumber != tempInt) {
         printf("hi\n\n");
             temp = getFrontInfo(q2);
