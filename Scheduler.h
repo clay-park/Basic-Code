@@ -13,6 +13,10 @@ struct info {
     int age;
     int cpuTime;
     int runs;
+    int quantums;
+    int totalQuantums;
+    int timesRun;
+    int ready;
 };
 
 

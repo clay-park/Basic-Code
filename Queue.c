@@ -36,8 +36,39 @@ void addToBack(struct LinkedQueue *q, struct info a){
 }
 int isEmpty(struct LinkedQueue *q){
 if(q->size == 0){
-    return EXIT_SUCCESS;
+    return 0;
 } else{
-return EXIT_FAILURE;
+return 1;
 } 
 }
+
+	char index;
+    int indexNumber;
+    int arrival;
+    int priority;
+    int age;
+    int cpuTime;
+    int runs;
+    int quantums;
+    int totalQuantums;
+    int timesRun;
+
+    void setPriority(struct LinkedQueue *q,int priority){
+        q-> front ->data.priority = priority;
+    }
+
+    void setTimesRun(struct LinkedQueue *q,int timesRun){
+        q->front->data.timesRun = timesRun;
+    }
+    void setQuantums(struct LinkedQueue *q,int quantums){
+        q->front->data.quantums = quantums;
+    }
+    void setTotalQuantums(struct LinkedQueue *q,int totalQuantums){
+        q->front->data.totalQuantums = totalQuantums;
+    }
+    void setReady(struct LinkedQueue *q,int readyTime){
+        q->front->data.ready = readyTime;
+    }
+    void setRuns(struct LinkedQueue *q,int runs){
+        q->front->data.runs = runs;
+    }
