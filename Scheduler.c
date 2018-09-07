@@ -226,6 +226,7 @@ int main() {
     int priority;
     int age;
     int cpuTime;
+    int checker = 0;
     scanf("%s", fileName);
     FILE *fp = fopen(fileName, "r");
     while (!feof(fp)) {
@@ -240,7 +241,7 @@ int main() {
         everything[amount].quantums = 0;
         everything[amount].totalQuantums = 0;
         everything[amount].timesRun = 0;
-        everything[amount].ready = 0;
+        everything[amount].ready = -1;
         // printf("%c%d %d %d %d %d\n",everything[amount].index,everything[amount].indexNumber,everything[amount].arrival,everything[amount].priority,everything[amount].age,everything[amount].cpuTime);
         amount++;
         if (amount == capacity - 1) {
@@ -248,38 +249,38 @@ int main() {
             everything = realloc(everything, capacity * sizeof (struct info));
         }
     }
+    int count = amount;
     // addToBack(q1,everything[0]);
     // addToBack(q1,everything[1]);
     // printf("%c%d %d %d %d %d\n",getFrontInfo(q1).index,getFrontInfo(q1).indexNumber,getFrontInfo(q1).arrival,getFrontInfo(q1).priority,getFrontInfo(q1).age,getFrontInfo(q1).cpuTime);
     // removeLinked(q1);
     // printf("%c%d %d %d %d %d\n",getFrontInfo(q1).index,getFrontInfo(q1).indexNumber,getFrontInfo(q1).arrival,getFrontInfo(q1).priority,getFrontInfo(q1).age,getFrontInfo(q1).cpuTime);
     printf("Index Priority   Arrival    End   Ready CPU_Time   Waiting\n");
-    while (isEmpty(q1) != 0 || isEmpty(q2) != 0 || isEmpty(q3) != 0 || isEmpty(q4) != 0 || amount != 0) {
+    while (isEmpty(q1) != 0 || isEmpty(q2) != 0 || isEmpty(q3) != 0 || isEmpty(q4) != 0 || (count) != 0) {
+        if(checker == 0){
         for (int j = 0; j < amount; j++) {
-        //     if(everything[j].priority == 2 && everything[j].arrival == i){
-
-        // printf("\n%d\n%c%d %d %d %d %d\n",i,everything[j].index,everything[j].indexNumber,everything[j].arrival,everything[j].priority,everything[j].age,everything[j].cpuTime);
-        //     }
             if (everything[j].priority == 6 && everything[j].arrival == i) {
                 addToBack(q1, everything[j]);
-                amount--;
+                count--;
             } else if (everything[j].priority == 5 && everything[j].arrival == i) {
                 addToBack(q2, everything[j]);
-                amount--;
+                count--;
             } else if (everything[j].priority == 4 && everything[j].arrival == i) {
                 addToBack(q3, everything[j]);
-                amount--;
+                count--;
             } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                 addToBack(q3, everything[j]);
-                amount--;
+                count--;
             } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                 addToBack(q4, everything[j]);
-                amount--;
+                count--;
             } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                 addToBack(q4, everything[j]);
-                amount--;
+                count--;
             }
         }
+        }
+        checker = 0;
         if (isEmpty(q1) == 1) {
             //TODO ADD CHECKS FOR PREMTION
             if (isEmpty(q3) == 1 && isEmpty(q4) == 1) {
@@ -295,7 +296,7 @@ int main() {
             }
             setTimesRun(q1, getFrontInfo(q1).timesRun + 1);
             while (getFrontInfo(q1).cpuTime != getFrontInfo(q1).totalQuantums && getFrontInfo(q1).quantums != 5) {
-                if (getFrontInfo(q1).ready != 0) {
+                if (getFrontInfo(q1).ready == -1) {
                     setReady(q1, i);
                 }
                 setTotalQuantums(q1, getFrontInfo(q1).totalQuantums + 1);
@@ -304,25 +305,26 @@ int main() {
                 for (int j = 0; j < amount; j++) {
                     if (everything[j].priority == 6 && everything[j].arrival == i) {
                         addToBack(q1, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 5 && everything[j].arrival == i) {
                         addToBack(q2, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 4 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        amount--;
+                        count--;
                     }
                 }
             }
+            checker = 1;
             setQuantums(q1, 0);
             setRuns(q1, 0);
             if (getFrontInfo(q1).cpuTime == getFrontInfo(q1).totalQuantums) {
@@ -359,7 +361,7 @@ int main() {
             }
             setTimesRun(q2, getFrontInfo(q2).timesRun + 1);
             while (getFrontInfo(q2).cpuTime != getFrontInfo(q2).totalQuantums && getFrontInfo(q2).quantums != 5) {
-                if (getFrontInfo(q2).ready != 0) {
+                if (getFrontInfo(q2).ready == -1) {
                     setReady(q2, i);
                 }
                 setTotalQuantums(q2, getFrontInfo(q2).totalQuantums + 1);
@@ -368,25 +370,26 @@ int main() {
                 for (int j = 0; j < amount; j++) {
                     if (everything[j].priority == 6 && everything[j].arrival == i) {
                         addToBack(q1, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 5 && everything[j].arrival == i) {
                         addToBack(q2, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 4 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        amount--;
+                        count--;
                     } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        amount--;
+                        count--;
                     }
                 }
             }
+            checker = 1;
             setQuantums(q2, 0);
             setRuns(q2, 0);
             if (getFrontInfo(q2).cpuTime == getFrontInfo(q2).totalQuantums) {
@@ -421,7 +424,7 @@ int main() {
                 setTimesRun(q3, getFrontInfo(q3).timesRun + 1);
             }
             if (getFrontInfo(q3).cpuTime != getFrontInfo(q3).totalQuantums && getFrontInfo(q3).quantums != 10) {
-                if (getFrontInfo(q3).ready != 0) {
+                if (getFrontInfo(q3).ready == -1) {
                     setReady(q3, i);
                 }
                 setTotalQuantums(q3, getFrontInfo(q3).totalQuantums + 1);
@@ -451,7 +454,7 @@ int main() {
             i++;
         } else if(isEmpty(q4) == 1){
             if (getFrontInfo(q4).cpuTime != getFrontInfo(q4).totalQuantums && getFrontInfo(q4).quantums != 20) {
-                if (getFrontInfo(q4).ready != 0) {
+                if (getFrontInfo(q4).ready == -1) {
                     setReady(q4, i);
                 }
                 setTotalQuantums(q4, getFrontInfo(q4).totalQuantums + 1);
@@ -473,7 +476,7 @@ int main() {
             i++;
         }   
         // printf("\n%d %d\n",getFrontInfo(q4).cpuTime,getFrontInfo(q4).totalQuantums);
-        printf("\n%d %d %d %d %d\n",size(q1),size(q2),size(q3),size(q4),amount);
+        // printf("\n%d %d %d %d %d\n",size(q1),size(q2),size(q3),size(q4),amount);
         // printf("\n%c%d %d %d %d %d %d %d\n", getFrontInfo(q4).index, getFrontInfo(q4).indexNumber, getFrontInfo(q4).priority, getFrontInfo(q4).arrival, i, getFrontInfo(q4).ready, getFrontInfo(q4).cpuTime, (i - (getFrontInfo(q4).ready + getFrontInfo(q4).cpuTime)));
     }
     free(everything);
