@@ -427,7 +427,6 @@ int main() {
                 setTotalQuantums(q3, getFrontInfo(q3).totalQuantums + 1);
                 setQuantums(q3, getFrontInfo(q3).quantums + 1);
             } else {
-                               printf("\n%d %d %d\n",getFrontInfo(q3).totalQuantums,getFrontInfo(q3).cpuTime,getFrontInfo(q3).timesRun);
                 if (getFrontInfo(q3).cpuTime == getFrontInfo(q3).totalQuantums) {
                     incrementQueue(q1, q2, q3, q4, 3);
                     struct info temp = getFrontInfo(q3);
