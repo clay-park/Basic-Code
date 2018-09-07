@@ -218,7 +218,6 @@ int main() {
     CreateQueue(q4);
     int amount = 0;
     int capacity = 10;
-    int p = 0;
     struct info *everything = (struct info *) malloc(10 * sizeof (struct info));
     char fileName[100];
     char index;
@@ -242,7 +241,6 @@ int main() {
         everything[amount].totalQuantums = 0;
         everything[amount].timesRun = 0;
         everything[amount].ready = 0;
-
         // printf("%c%d %d %d %d %d\n",everything[amount].index,everything[amount].indexNumber,everything[amount].arrival,everything[amount].priority,everything[amount].age,everything[amount].cpuTime);
         amount++;
         if (amount == capacity - 1) {
@@ -256,7 +254,7 @@ int main() {
     // removeLinked(q1);
     // printf("%c%d %d %d %d %d\n",getFrontInfo(q1).index,getFrontInfo(q1).indexNumber,getFrontInfo(q1).arrival,getFrontInfo(q1).priority,getFrontInfo(q1).age,getFrontInfo(q1).cpuTime);
     printf("Index Priority   Arrival    End   Ready CPU_Time   Waiting\n");
-    while (isEmpty(q1) != 0 || isEmpty(q2) != 0 || isEmpty(q3) != 0 || isEmpty(q4) != 0 || p < 6) {
+    while (isEmpty(q1) != 0 || isEmpty(q2) != 0 || isEmpty(q3) != 0 || isEmpty(q4) != 0 || amount != 0) {
         for (int j = 0; j < amount; j++) {
         //     if(everything[j].priority == 2 && everything[j].arrival == i){
 
@@ -264,22 +262,22 @@ int main() {
         //     }
             if (everything[j].priority == 6 && everything[j].arrival == i) {
                 addToBack(q1, everything[j]);
-                p++;
+                amount--;
             } else if (everything[j].priority == 5 && everything[j].arrival == i) {
                 addToBack(q2, everything[j]);
-                p++;
+                amount--;
             } else if (everything[j].priority == 4 && everything[j].arrival == i) {
                 addToBack(q3, everything[j]);
-                p++;
+                amount--;
             } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                 addToBack(q3, everything[j]);
-                p++;
+                amount--;
             } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                 addToBack(q4, everything[j]);
-                p++;
+                amount--;
             } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                 addToBack(q4, everything[j]);
-                p++;
+                amount--;
             }
         }
         if (isEmpty(q1) == 1) {
@@ -306,22 +304,22 @@ int main() {
                 for (int j = 0; j < amount; j++) {
                     if (everything[j].priority == 6 && everything[j].arrival == i) {
                         addToBack(q1, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 5 && everything[j].arrival == i) {
                         addToBack(q2, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 4 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        p++;
+                        amount--;
                     }
                 }
             }
@@ -370,22 +368,22 @@ int main() {
                 for (int j = 0; j < amount; j++) {
                     if (everything[j].priority == 6 && everything[j].arrival == i) {
                         addToBack(q1, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 5 && everything[j].arrival == i) {
                         addToBack(q2, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 4 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        p++;
+                        amount--;
                     } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
-                        p++;
+                        amount--;
                     }
                 }
             }
@@ -437,11 +435,13 @@ int main() {
                 } else if (getFrontInfo(q3).timesRun == 2) {
                     incrementQueue(q1, q2, q3, q4, 3);
                     setTimesRun(q3, 0);
+                    setQuantums(q3, 0);
                     setPriority(q3, getFrontInfo(q3).priority - 1);
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
                     addToBack(q4, temp);
-                } else {                 
+                } else {
+                    setQuantums(q3, 0);                 
                     incrementQueue(q1, q2, q3, q4, 3);
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
@@ -450,9 +450,6 @@ int main() {
             }
             i++;
         } else if(isEmpty(q4) == 1){
-            if (getFrontInfo(q4).runs == 0) {
-                setTimesRun(q4, getFrontInfo(q4).timesRun + 1);
-            }
             if (getFrontInfo(q4).cpuTime != getFrontInfo(q4).totalQuantums && getFrontInfo(q4).quantums != 20) {
                 if (getFrontInfo(q4).ready != 0) {
                     setReady(q4, i);
@@ -466,6 +463,7 @@ int main() {
                     removeLinked(q4);
                     printf("%c%d %d %d %d %d %d %d\n", temp.index, temp.indexNumber, temp.priority, temp.arrival, i, temp.ready, temp.cpuTime, (i - (temp.ready + temp.cpuTime)));
                 } else {
+                    setQuantums(q4, 0);
                     incrementQueue(q1, q2, q3, q4, 4);
                     struct info temp = getFrontInfo(q4);
                     removeLinked(q4);
@@ -473,9 +471,10 @@ int main() {
                 }
             }
             i++;
-        }
-
-
+        }   
+        // printf("\n%d %d\n",getFrontInfo(q4).cpuTime,getFrontInfo(q4).totalQuantums);
+        printf("\n%d %d %d %d %d\n",size(q1),size(q2),size(q3),size(q4),amount);
+        // printf("\n%c%d %d %d %d %d %d %d\n", getFrontInfo(q4).index, getFrontInfo(q4).indexNumber, getFrontInfo(q4).priority, getFrontInfo(q4).arrival, i, getFrontInfo(q4).ready, getFrontInfo(q4).cpuTime, (i - (getFrontInfo(q4).ready + getFrontInfo(q4).cpuTime)));
     }
     free(everything);
     free(q1);
