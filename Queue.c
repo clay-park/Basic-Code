@@ -41,17 +41,11 @@ if(q->size == 0){
 return 1;
 } 
 }
+int size(struct LinkedQueue *q){
+    return q->size;
+}
 
-	char index;
-    int indexNumber;
-    int arrival;
-    int priority;
-    int age;
-    int cpuTime;
-    int runs;
-    int quantums;
-    int totalQuantums;
-    int timesRun;
+
 
     void setPriority(struct LinkedQueue *q,int priority){
         q-> front ->data.priority = priority;

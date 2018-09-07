@@ -43,4 +43,6 @@ void setReady(struct LinkedQueue *q,int readyTime);
 
 void setRuns(struct LinkedQueue *q,int runs);
 
+int size(struct LinkedQueue *q);
+
 #endif
