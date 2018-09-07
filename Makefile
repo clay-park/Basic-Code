@@ -4,6 +4,6 @@ all: encode
 
 #cleans and then compiles encode
 encode:
-	gcc -ggdb -o Scheduler Scheduler.c Queue.c
+	gcc -std=c11 OnlineService.c -o run
 
 
