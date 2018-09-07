@@ -316,10 +316,10 @@ int main() {
                     } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
                         p++;
-                    } else if (everything[amount].priority == 2 && everything[j].arrival == i) {
+                    } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
                         p++;
-                    } else if (everything[amount].priority == 1 && everything[j].arrival == i) {
+                    } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
                         p++;
                     }
@@ -380,10 +380,10 @@ int main() {
                     } else if (everything[j].priority == 3 && everything[j].arrival == i) {
                         addToBack(q3, everything[j]);
                         p++;
-                    } else if (everything[amount].priority == 2 && everything[j].arrival == i) {
+                    } else if (everything[j].priority == 2 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
                         p++;
-                    } else if (everything[amount].priority == 1 && everything[j].arrival == i) {
+                    } else if (everything[j].priority == 1 && everything[j].arrival == i) {
                         addToBack(q4, everything[j]);
                         p++;
                     }
