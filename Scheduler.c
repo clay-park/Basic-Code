@@ -416,7 +416,8 @@ int main() {
                     incrementQueue(q1, q2, q3, q4, 4);
                 }
             }
-            if (getFrontInfo(q3).runs == 0) {
+            //TODO FIX HERE
+            if (getFrontInfo(q3).quantums == 10) {
                 setTimesRun(q3, getFrontInfo(q3).timesRun + 1);
             }
             if (getFrontInfo(q3).cpuTime != getFrontInfo(q3).totalQuantums && getFrontInfo(q3).quantums != 10) {
@@ -426,6 +427,7 @@ int main() {
                 setTotalQuantums(q3, getFrontInfo(q3).totalQuantums + 1);
                 setQuantums(q3, getFrontInfo(q3).quantums + 1);
             } else {
+                               printf("\n%d %d %d\n",getFrontInfo(q3).totalQuantums,getFrontInfo(q3).cpuTime,getFrontInfo(q3).timesRun);
                 if (getFrontInfo(q3).cpuTime == getFrontInfo(q3).totalQuantums) {
                     incrementQueue(q1, q2, q3, q4, 3);
                     struct info temp = getFrontInfo(q3);
@@ -438,7 +440,7 @@ int main() {
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
                     addToBack(q4, temp);
-                } else {
+                } else {                 
                     incrementQueue(q1, q2, q3, q4, 3);
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
