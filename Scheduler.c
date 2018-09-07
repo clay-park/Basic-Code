@@ -256,8 +256,8 @@ int main() {
     // removeLinked(q1);
     // printf("%c%d %d %d %d %d\n",getFrontInfo(q1).index,getFrontInfo(q1).indexNumber,getFrontInfo(q1).arrival,getFrontInfo(q1).priority,getFrontInfo(q1).age,getFrontInfo(q1).cpuTime);
     printf("Index Priority   Arrival    End   Ready CPU_Time   Waiting\n");
-    // while (isEmpty(q1) != 0 || isEmpty(q2) != 0 || isEmpty(q3) != 0 || isEmpty(q4) != 0 || p < 6) {
-        while(i<114){
+    while (isEmpty(q1) != 0 || isEmpty(q2) != 0 || isEmpty(q3) != 0 || isEmpty(q4) != 0 || p < 6) {
+        // while(i<114){
         // printf("\n\n%d\n\n", i);
         for (int j = 0; j < amount; j++) {
             if (everything[j].priority == 6 && everything[j].arrival == i) {
@@ -432,7 +432,7 @@ int main() {
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
                     printf("%c%d %d %d %d %d %d %d\n", temp.index, temp.indexNumber, temp.priority, temp.arrival, i, temp.ready, temp.cpuTime, (i - (temp.ready + temp.cpuTime)));
-                } else if (getFrontInfo(q2).timesRun == 2) {
+                } else if (getFrontInfo(q3).timesRun == 2) {
                     incrementQueue(q1, q2, q3, q4, 3);
                     setTimesRun(q3, 0);
                     setPriority(q3, getFrontInfo(q3).priority - 1);
@@ -475,9 +475,6 @@ int main() {
 
 
     }
-    printf("\n%d\n%d\n%d\n%d\n",size(q1),size(q2),size(q3),size(q4));
-    printf("\n%d %d\n",getFrontInfo(q3).totalQuantums,getFrontInfo(q3).cpuTime);
-    printf("%c%d %d %d %d %d\n",getFrontInfo(q3).index,getFrontInfo(q3).indexNumber,getFrontInfo(q3).arrival,getFrontInfo(q3).priority,getFrontInfo(q3).age,getFrontInfo(q3).cpuTime);
     free(everything);
     free(q1);
     free(q2);
