@@ -1,8 +1,13 @@
+/**
+ * OnlineService Program
+ * @author Clay Park(1759080), Cameron Youngblood(a1758818)
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-struct info {
+struct info;
+typedef struct info {
 	char index;
     int indexNumber;
     int arrival;
@@ -14,7 +19,7 @@ struct info {
     int totalQuantums;
     int timesRun;
     int ready;
-};
+}info;
 
 
 typedef struct Node{
@@ -93,19 +98,150 @@ int size(struct LinkedQueue *q){
     void setRuns(struct LinkedQueue *q,int runs){
         q->front->data.runs = runs;
     }
+    void debugHelper(struct LinkedQueue *q1, struct LinkedQueue *q2, struct LinkedQueue *q3, struct LinkedQueue *q4,int i){
+        printf("LastMoment of %d\n", i);
+        printf("Q1: ");
+        if (isEmpty(q1) != 0){
+                    int tempInt = getFrontInfo(q1).indexNumber;
+            struct info temp = getFrontInfo(q1);
+            printf("%d ",getFrontInfo(q1).indexNumber);
+            removeLinked(q1);
+            addToBack(q1, temp);
+            while (getFrontInfo(q1).indexNumber != tempInt) {
+                    printf("%d ",getFrontInfo(q1).indexNumber);
+                    temp = getFrontInfo(q1);
+                    removeLinked(q1);
+                    addToBack(q1, temp);
+            }
+        }
+        printf("\nQ2: ");
+                if (isEmpty(q2) != 0){
+                    int tempInt = getFrontInfo(q2).indexNumber;
+            struct info temp = getFrontInfo(q2);
+            printf("%d ",getFrontInfo(q2).indexNumber);
+            removeLinked(q2);
+            addToBack(q2, temp);
+            while (getFrontInfo(q2).indexNumber != tempInt) {
+                    printf("%d ",getFrontInfo(q2).indexNumber);
+                    temp = getFrontInfo(q2);
+                    removeLinked(q2);
+                    addToBack(q2, temp);
+            }
+        }
+        printf("\n");
+        printf("Q3: ");
+                if (isEmpty(q3) != 0){
+            int tempInt = getFrontInfo(q3).indexNumber;
+            struct info temp = getFrontInfo(q3);
+            printf("%d ",getFrontInfo(q3).indexNumber);
+            removeLinked(q3);
+            addToBack(q3, temp);
+            // printf("h %d %d h",tempInt, getFrontInfo(q3).indexNumber);
+            while (getFrontInfo(q3).indexNumber != tempInt) {
+                    printf("%d ",getFrontInfo(q3).indexNumber);
+                    temp = getFrontInfo(q3);
+                    removeLinked(q3);
+                    addToBack(q3, temp);
+            }
+        }
+        printf("\n");
+        printf("Q4: ");
+                if (isEmpty(q4) != 0){
+                    int tempInt = getFrontInfo(q4).indexNumber;
+            struct info temp = getFrontInfo(q4);
+            printf("%d ",getFrontInfo(q4).indexNumber);
+            removeLinked(q4);
+            addToBack(q4, temp);
+            while (getFrontInfo(q4).indexNumber != tempInt) {
+                    printf("%d ",getFrontInfo(q4).indexNumber);
+                    temp = getFrontInfo(q4);
+                    removeLinked(q4);
+                    addToBack(q4, temp);
+            }
+        }
+        printf("\n");
+    }
 
-void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct LinkedQueue *q3, struct LinkedQueue *q4, int currentQueue) {
+
+void incrementQueue(struct LinkedQueue *q2, struct LinkedQueue *q3, struct LinkedQueue *q4, int currentQueue) {
     if (currentQueue == 1) {
-        if (isEmpty(q3) != 0) {
+                if (isEmpty(q3) != 0) {
+            int entered = 0;
             int tempInt = getFrontInfo(q3).indexNumber;
             struct info temp = getFrontInfo(q3);
             removeLinked(q3);
             temp.runs++;
-            addToBack(q3, temp);
+            // if(temp.indexNumber == 0){
+            //     printf("\nhiii %d\n", temp.runs);
+            // }
+            //ISSUE IS IF FRONT INT IS REMOVED WHAT TO DO
+            if(temp.runs == 8 && size(q3) != 0){
+            temp.priority++;
+            temp.runs = 0;
+                    if (temp.priority == 5) {
+            addToBack(q2, temp);
+            if(size(q3) != 0){
+            tempInt = getFrontInfo(q3).indexNumber;
+            temp = getFrontInfo(q3);
+            temp.runs++;
+            removeLinked(q3);
+            // printf("\n%d %d\n",temp.indexNumber, temp.runs);
+            int b = 2;
+            if(temp.runs == 8 && size(q3) != 0 && b == 2){
+            while(temp.runs == 8 && size(q3) != 0){
+            temp.priority++;
+            temp.runs = 0;
+            if (temp.priority == 5) {
+                        addToBack(q2, temp);
+            if(size(q3) != 0){
+            tempInt = getFrontInfo(q3).indexNumber;
+            temp = getFrontInfo(q3);
+            removeLinked(q3); 
+            temp.runs++; 
+            } else {
+                b = 0;
+            } 
+                        } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);   
+                        }
+                        }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);   
+                    }
+                    }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+                    }    
+            } if(size(q3) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 5) {
+                        addToBack(q2, temp);
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+                    }
+                } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+            }                 
+            }
+             else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+            }
+            // printf("\n%d\n", tempInt);
             while (getFrontInfo(q3).indexNumber != tempInt) {
+                // printf("\nhii\n");
                 temp = getFrontInfo(q3);
                 temp.runs++;
                 if (temp.runs == 8) {
+                    temp.runs = 0;
                     removeLinked(q3);
                     temp.priority++;
                     if (temp.priority == 5) {
@@ -119,16 +255,83 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
                 }
             }
         }
-        if (isEmpty(q4) != 0) {
+                     if (isEmpty(q4) != 0) {
+            int entered = 0;
             int tempInt = getFrontInfo(q4).indexNumber;
             struct info temp = getFrontInfo(q4);
             removeLinked(q4);
             temp.runs++;
-            addToBack(q4, temp);
+            // if(temp.indexNumber == 0){
+            //     printf("\nhiii %d\n", temp.runs);
+            // }
+            //ISSUE IS IF FRONT INT IS REMOVED WHAT TO DO
+            if(temp.runs == 8 && size(q4) != 0){
+            temp.priority++;
+            temp.runs = 0;
+                    if (temp.priority == 5) {
+            addToBack(q2, temp);
+            if(size(q4) != 0){
+            tempInt = getFrontInfo(q4).indexNumber;
+            temp = getFrontInfo(q4);
+            temp.runs++;
+            removeLinked(q4);
+            // printf("\n%d %d\n",temp.indexNumber, temp.runs);
+            int b = 2;
+            if(temp.runs == 8 && size(q4) != 0 && b == 2){
+            while(temp.runs == 8 && size(q4) != 0){
+            temp.priority++;
+            temp.runs = 0;
+            if (temp.priority == 3) {
+                        addToBack(q3, temp);
+            if(size(q4) != 0){
+            tempInt = getFrontInfo(q4).indexNumber;
+            temp = getFrontInfo(q4);
+            removeLinked(q4); 
+            temp.runs++; 
+            } else {
+                b = 0;
+            } 
+                        } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);   
+                        }
+                        }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);   
+                    }
+                    }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+                    }    
+            } if(size(q4) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 3) {
+                        addToBack(q3, temp);
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+                    }
+                } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+            }                 
+            }
+             else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+            }
+            // printf("\n%d\n", tempInt);
             while (getFrontInfo(q4).indexNumber != tempInt) {
+                // printf("\nhii\n");
                 temp = getFrontInfo(q4);
                 temp.runs++;
                 if (temp.runs == 8) {
+                    temp.runs = 0;
                     removeLinked(q4);
                     temp.priority++;
                     if (temp.priority == 3) {
@@ -179,15 +382,80 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
             // addToBack(q2, temp);
         }
         if (isEmpty(q3) != 0) {
+            int entered = 0;
             int tempInt = getFrontInfo(q3).indexNumber;
             struct info temp = getFrontInfo(q3);
             removeLinked(q3);
             temp.runs++;
-            addToBack(q3, temp);
+            // if(temp.indexNumber == 0){
+            //     printf("\nhiii %d\n", temp.runs);
+            // }
+            //ISSUE IS IF FRONT INT IS REMOVED WHAT TO DO
+            if(temp.runs == 8 && size(q3) != 0){
+            temp.priority++;
+            temp.runs = 0;
+                    if (temp.priority == 5) {
+            addToBack(q2, temp);
+            if(size(q3) != 0){
+            tempInt = getFrontInfo(q3).indexNumber;
+            temp = getFrontInfo(q3);
+            temp.runs++;
+            removeLinked(q3);
+            // printf("\n%d %d\n",temp.indexNumber, temp.runs);
+            int b = 2;
+            if(temp.runs == 8 && size(q3) != 0 && b == 2){
+            while(temp.runs == 8 && size(q3) != 0){
+            temp.priority++;
+            temp.runs = 0;
+            if (temp.priority == 5) {
+                        addToBack(q2, temp);
+            if(size(q3) != 0){
+            tempInt = getFrontInfo(q3).indexNumber;
+            temp = getFrontInfo(q3);
+            removeLinked(q3); 
+            temp.runs++; 
+            } else {
+                b = 0;
+            } 
+                        } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);   
+                        }
+                        }
+                    }
+                    }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+                    }   
+            } if(size(q3) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 5) {
+                        addToBack(q2, temp);
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+                    }
+                } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+            }                 
+            }
+             else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+            }
+            // printf("\n%d\n", tempInt);
+            if(size(q3) != 0){
             while (getFrontInfo(q3).indexNumber != tempInt) {
+                // printf("\nhii\n");
                 temp = getFrontInfo(q3);
                 temp.runs++;
                 if (temp.runs == 8) {
+                    temp.runs = 0;
                     removeLinked(q3);
                     temp.priority++;
                     if (temp.priority == 5) {
@@ -200,17 +468,35 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
                     addToBack(q3, temp);
                 }
             }
+            }
         }
         if (isEmpty(q4) != 0) {
             int tempInt = getFrontInfo(q4).indexNumber;
             struct info temp = getFrontInfo(q4);
             removeLinked(q4);
             temp.runs++;
+            if(size(q4) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 9) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 3) {
+                        addToBack(q3, temp);
+                    } else {
+                        addToBack(q4, temp);
+                    }
+                } else {
             addToBack(q4, temp);
+            }                 
+            } else {
+            addToBack(q4, temp);
+            }
+            if (isEmpty(q4) != 0) {
             while (getFrontInfo(q4).indexNumber != tempInt) {
                 temp = getFrontInfo(q4);
                 temp.runs++;
                 if (temp.runs == 8) {
+                    temp.runs = 0;
                     removeLinked(q4);
                     temp.priority++;
                     if (temp.priority == 3) {
@@ -223,17 +509,86 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
                     addToBack(q4, temp);
                 }
             }
+            }
         }
     } else if (currentQueue == 3) {
         if (isEmpty(q3) != 0) {
+            int entered = 0;
             int tempInt = getFrontInfo(q3).indexNumber;
             struct info temp = getFrontInfo(q3);
             removeLinked(q3);
-            addToBack(q3, temp);
+            temp.runs++;
+            // if(temp.indexNumber == 0){
+            //     printf("\nhiii %d\n", temp.runs);
+            // }
+            //ISSUE IS IF FRONT INT IS REMOVED WHAT TO DO
+            if(temp.runs == 8 && size(q3) != 0){
+            temp.priority++;
+            temp.runs = 0;
+                    if (temp.priority == 5) {
+            addToBack(q2, temp);
+            if(size(q3) != 0){
+            tempInt = getFrontInfo(q3).indexNumber;
+            temp = getFrontInfo(q3);
+            temp.runs++;
+            removeLinked(q3);
+            // printf("\n%d %d\n",temp.indexNumber, temp.runs);
+            int b = 2;
+            if(temp.runs == 8 && size(q3) != 0 && b == 2){
+            while(temp.runs == 8 && size(q3) != 0){
+            temp.priority++;
+            temp.runs = 0;
+            if (temp.priority == 5) {
+                        addToBack(q2, temp);
+            if(size(q3) != 0){
+            tempInt = getFrontInfo(q3).indexNumber;
+            temp = getFrontInfo(q3);
+            removeLinked(q3); 
+            temp.runs++; 
+            } else {
+                b = 0;
+            } 
+                        } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);   
+                        }
+                        }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);   
+                    }
+                    }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+                    }    
+            } if(size(q3) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 5) {
+                        addToBack(q2, temp);
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+                    }
+                } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+            }                 
+            }
+             else if(entered == 0){
+                            entered = 1;
+                         addToBack(q3, temp);  
+            }
+            // printf("\n%d\n", tempInt);
             while (getFrontInfo(q3).indexNumber != tempInt) {
+                // printf("\nhii\n");
                 temp = getFrontInfo(q3);
                 temp.runs++;
                 if (temp.runs == 8) {
+                    temp.runs = 0;
                     removeLinked(q3);
                     temp.priority++;
                     if (temp.priority == 5) {
@@ -248,15 +603,82 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
             }
         }
         if (isEmpty(q4) != 0) {
+            int entered = 0;
             int tempInt = getFrontInfo(q4).indexNumber;
             struct info temp = getFrontInfo(q4);
             removeLinked(q4);
             temp.runs++;
-            addToBack(q4, temp);
+            // if(temp.indexNumber == 0){
+            //     printf("\nhiii %d\n", temp.runs);
+            // }
+            //ISSUE IS IF FRONT INT IS REMOVED WHAT TO DO
+            if(temp.runs == 8 && size(q4) != 0){
+            temp.priority++;
+            temp.runs = 0;
+                    if (temp.priority == 5) {
+            addToBack(q2, temp);
+            if(size(q4) != 0){
+            tempInt = getFrontInfo(q4).indexNumber;
+            temp = getFrontInfo(q4);
+            temp.runs++;
+            removeLinked(q4);
+            // printf("\n%d %d\n",temp.indexNumber, temp.runs);
+            int b = 2;
+            if(temp.runs == 8 && size(q4) != 0 && b == 2){
+            while(temp.runs == 8 && size(q4) != 0){
+            temp.priority++;
+            temp.runs = 0;
+            if (temp.priority == 3) {
+                        addToBack(q3, temp);
+            if(size(q4) != 0){
+            tempInt = getFrontInfo(q4).indexNumber;
+            temp = getFrontInfo(q4);
+            removeLinked(q4); 
+            temp.runs++; 
+            } else {
+                b = 0;
+            } 
+                        } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);   
+                        }
+                        }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);   
+                    }
+                    }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+                    }    
+            } if(size(q4) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 3) {
+                        addToBack(q3, temp);
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+                    }
+                } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+            }                 
+            }
+             else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+            }
+            // printf("\n%d\n", tempInt);
             while (getFrontInfo(q4).indexNumber != tempInt) {
+                // printf("\nhii\n");
                 temp = getFrontInfo(q4);
                 temp.runs++;
                 if (temp.runs == 8) {
+                    temp.runs = 0;
                     removeLinked(q4);
                     temp.priority++;
                     if (temp.priority == 3) {
@@ -271,28 +693,97 @@ void incrementQueue(struct LinkedQueue *q1, struct LinkedQueue *q2, struct Linke
             }
         }
     } else if (currentQueue == 4) {
-        int tempInt = getFrontInfo(q4).indexNumber;
-        struct info temp = getFrontInfo(q4);
-        removeLinked(q4);
-        addToBack(q4, temp);
-        while (getFrontInfo(q4).indexNumber != tempInt) {
+   if (isEmpty(q4) != 0) {
+            int entered = 0;
+            int tempInt = getFrontInfo(q4).indexNumber;
+            struct info temp = getFrontInfo(q4);
+            removeLinked(q4);
+            temp.runs++;
+            // if(temp.indexNumber == 0){
+            //     printf("\nhiii %d\n", temp.runs);
+            // }
+            //ISSUE IS IF FRONT INT IS REMOVED WHAT TO DO
+            if(temp.runs == 8 && size(q4) != 0){
+            temp.priority++;
+            temp.runs = 0;
+                    if (temp.priority == 5) {
+            addToBack(q2, temp);
+            if(size(q4) != 0){
+            tempInt = getFrontInfo(q4).indexNumber;
             temp = getFrontInfo(q4);
             temp.runs++;
-            if (temp.runs == 7) {
-                removeLinked(q4);
-                temp.priority++;
-                if (temp.priority == 3) {
-                    addToBack(q3, temp);
+            removeLinked(q4);
+            // printf("\n%d %d\n",temp.indexNumber, temp.runs);
+            int b = 2;
+            if(temp.runs == 8 && size(q4) != 0 && b == 2){
+            while(temp.runs == 8 && size(q4) != 0){
+            temp.priority++;
+            temp.runs = 0;
+            if (temp.priority == 3) {
+                        addToBack(q3, temp);
+            if(size(q4) != 0){
+            tempInt = getFrontInfo(q4).indexNumber;
+            temp = getFrontInfo(q4);
+            removeLinked(q4); 
+            temp.runs++; 
+            } else {
+                b = 0;
+            } 
+                        } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);   
+                        }
+                        }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);   
+                    }
+                    }
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+                    }    
+            } if(size(q4) == 0){
+                //TODO FIX HERE SIZE O AND REMOVED LINKS IS AN ISSUE
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    temp.priority++;
+                    if (temp.priority == 3) {
+                        addToBack(q3, temp);
+                    } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+                    }
+                } else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+            }                 
+            }
+             else if(entered == 0){
+                            entered = 1;
+                         addToBack(q4, temp);  
+            }
+            // printf("\n%d\n", tempInt);
+            while (getFrontInfo(q4).indexNumber != tempInt) {
+                // printf("\nhii\n");
+                temp = getFrontInfo(q4);
+                temp.runs++;
+                if (temp.runs == 8) {
+                    temp.runs = 0;
+                    removeLinked(q4);
+                    temp.priority++;
+                    if (temp.priority == 3) {
+                        addToBack(q3, temp);
+                    } else {
+                        addToBack(q4, temp);
+                    }
                 } else {
+                    removeLinked(q4);
                     addToBack(q4, temp);
                 }
-            } else {
-                removeLinked(q4);
-                addToBack(q4, temp);
             }
         }
-    }
-
+}
 }
 
 int main(int argc, char *argv[]) {
@@ -319,7 +810,7 @@ int main(int argc, char *argv[]) {
     // scanf("%s", fileName);
     FILE *fp = fopen(argv[1], "r");
     while (!feof(fp)) {
-        fscanf(fp, "%c%d %d %d %d %d%*[\n]", &index, &indexNumber, &arrival, &priority, &age, &cpuTime);
+        fscanf(fp, "%c%d %d %d %d %d ", &index, &indexNumber, &arrival, &priority, &age, &cpuTime);
         everything[amount].index = index;
         everything[amount].indexNumber = indexNumber;
         everything[amount].arrival = arrival;
@@ -367,15 +858,21 @@ int main(int argc, char *argv[]) {
         checker = 0;
         if (isEmpty(q1) == 1) {
             //TODO ADD CHECKS FOR PREMTION
-            if (isEmpty(q3) == 1 && isEmpty(q4) == 1) {
+            if (isEmpty(q3) == 1) {
                 if (getFrontInfo(q3).quantums != 0) {
                     setQuantums(q3, 0);
                     setRuns(q3, 0);
-                    incrementQueue(q1, q2, q3, q4, 3);
-                } else if (getFrontInfo(q4).quantums != 0) {
+                    struct info temp = getFrontInfo(q3);
+                    removeLinked(q3);
+                    incrementQueue(q2, q3, q4, 3);
+                    addToBack(q3,temp);
+                }
+                }
+                if(isEmpty(q4) == 1){
+                 if (getFrontInfo(q4).quantums != 0) {
                     setQuantums(q4, 0);
                     setRuns(q4, 0);
-                    incrementQueue(q1, q2, q3, q4, 4);
+                    incrementQueue(q2, q3, q4, 4);
                 }
             }
             setTimesRun(q1, getFrontInfo(q1).timesRun + 1);
@@ -385,6 +882,7 @@ int main(int argc, char *argv[]) {
                 }
                 setTotalQuantums(q1, getFrontInfo(q1).totalQuantums + 1);
                 setQuantums(q1, getFrontInfo(q1).quantums + 1);
+                // debugHelper(q1,q2,q3,q4,i);
                 i++;
                 for (int j = 0; j < amount; j++) {
                     if (everything[j].priority == 6 && everything[j].arrival == i) {
@@ -433,17 +931,17 @@ int main(int argc, char *argv[]) {
                 struct info temp = getFrontInfo(q1);
                 removeLinked(q1);
                 printf("%c%-5d %-6d %-6d %-6d %-6d %-6d %-6d\n", temp.index, temp.indexNumber, temp.priority, temp.arrival, i, temp.ready, temp.cpuTime, (i - (temp.ready + temp.cpuTime)));
-                incrementQueue(q1, q2, q3, q4, 1);
+                incrementQueue(q2, q3, q4, 1);
             } else if (getFrontInfo(q1).timesRun == 5) {
                 setTimesRun(q1, 0);
                 setPriority(q1, getFrontInfo(q1).priority - 1);
                 struct info temp = getFrontInfo(q1);
                 removeLinked(q1);
                 addToBack(q2, temp);
-                incrementQueue(q1, q2, q3, q4, 1);
+                incrementQueue(q2, q3, q4, 1);
                 //TODO ADD INCREMENT QUEUE
             } else {
-                incrementQueue(q1, q2, q3, q4, 1);
+                incrementQueue(q2, q3, q4, 1);
                 struct info temp = getFrontInfo(q1);
                 removeLinked(q1);
                 addToBack(q1, temp);
@@ -454,11 +952,11 @@ int main(int argc, char *argv[]) {
                 if (getFrontInfo(q3).quantums != 0) {
                     setQuantums(q3, 0);
                     setRuns(q3, 0);
-                    incrementQueue(q1, q2, q3, q4, 3);
+                    incrementQueue(q2, q3, q4, 3);
                 } else if (getFrontInfo(q4).quantums != 0) {
                     setQuantums(q4, 0);
                     setRuns(q4, 0);
-                    incrementQueue(q1, q2, q3, q4, 4);
+                    incrementQueue(q2, q3, q4, 4);
                 }
             }
             setTimesRun(q2, getFrontInfo(q2).timesRun + 1);
@@ -468,6 +966,7 @@ int main(int argc, char *argv[]) {
                 }
                 setTotalQuantums(q2, getFrontInfo(q2).totalQuantums + 1);
                 setQuantums(q2, getFrontInfo(q2).quantums + 1);
+                // debugHelper(q1,q2,q3,q4,i);
                 i++;
                 for (int j = 0; j < amount; j++) {
                     if (everything[j].priority == 6 && everything[j].arrival == i) {
@@ -517,19 +1016,19 @@ int main(int argc, char *argv[]) {
                 struct info temp = getFrontInfo(q2);
                 removeLinked(q2);
                 printf("%c%-5d %-6d %-6d %-6d %-6d %-6d %-6d\n", temp.index, temp.indexNumber, temp.priority, temp.arrival, i, temp.ready, temp.cpuTime, (i - (temp.ready + temp.cpuTime)));
-                incrementQueue(q1, q2, q3, q4, 2);
+                incrementQueue(q2, q3, q4, 2);
             } else if (getFrontInfo(q2).timesRun == 5) {
                 setTimesRun(q2, 0);
                 setPriority(q2, getFrontInfo(q2).priority - 1);
                 struct info temp = getFrontInfo(q2);
                 removeLinked(q2);
                 addToBack(q3, temp);
-                incrementQueue(q1, q2, q3, q4, 2);
+                incrementQueue(q2, q3, q4, 2);
             } else {
                 struct info temp = getFrontInfo(q2);
                 removeLinked(q2);
                 addToBack(q2, temp);
-                incrementQueue(q1, q2, q3, q4, 2);
+                incrementQueue(q2, q3, q4, 2);
             }
 
         } else if (isEmpty(q3) == 1) {
@@ -537,11 +1036,12 @@ int main(int argc, char *argv[]) {
                 if (getFrontInfo(q4).quantums != 0) {
                     setQuantums(q4, 0);
                     setRuns(q4, 0);
-                    incrementQueue(q1, q2, q3, q4, 4);
+                    incrementQueue(q2, q3, q4, 4);
                 }
             }
             //TODO FIX HERE
             if (getFrontInfo(q3).quantums == 10) {
+                // printf("\n%d %d\n", getFrontInfo(q3).priority , getFrontInfo(q3).indexNumber);
                 setTimesRun(q3, getFrontInfo(q3).timesRun + 1);
             }
             if (getFrontInfo(q3).cpuTime != getFrontInfo(q3).totalQuantums && getFrontInfo(q3).quantums != 10) {
@@ -552,28 +1052,41 @@ int main(int argc, char *argv[]) {
                 setQuantums(q3, getFrontInfo(q3).quantums + 1);
             } else {
                 if (getFrontInfo(q3).cpuTime == getFrontInfo(q3).totalQuantums) {
-                    incrementQueue(q1, q2, q3, q4, 3);
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
+                    incrementQueue(q2, q3, q4, 3);
                     printf("%c%-5d %-6d %-6d %-6d %-6d %-6d %-6d\n", temp.index, temp.indexNumber, temp.priority, temp.arrival, i, temp.ready, temp.cpuTime, (i - (temp.ready + temp.cpuTime)));
                 } else if (getFrontInfo(q3).timesRun == 2) {
-                    incrementQueue(q1, q2, q3, q4, 3);
                     setTimesRun(q3, 0);
                     setQuantums(q3, 0);
+                    setRuns(q3,0);
                     setPriority(q3, getFrontInfo(q3).priority - 1);
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
+                    if(temp.priority == 2){ 
                     addToBack(q4, temp);
+                    incrementQueue(q2, q3, q4, 3);  
+                    } else { 
+                    addToBack(q3, temp);  
+                    incrementQueue(q2, q3, q4, 3);  
+                    }                   
+                    
                 } else {
                     setQuantums(q3, 0);                 
-                    incrementQueue(q1, q2, q3, q4, 3);
                     struct info temp = getFrontInfo(q3);
                     removeLinked(q3);
+                    incrementQueue(q2, q3, q4, 3);
                     addToBack(q3, temp);
                 }
             }
+            // debugHelper(q1,q2,q3,q4,i);
+            if(size(q3) != 0){
+                if(getFrontInfo(q3).quantums != 0){
             i++;
+                }
+            }
         } else if(isEmpty(q4) == 1){
+            // printf("\n%d\n",i);
             if (getFrontInfo(q4).cpuTime != getFrontInfo(q4).totalQuantums && getFrontInfo(q4).quantums != 20) {
                 if (getFrontInfo(q4).ready == -1) {
                     setReady(q4, i);
@@ -582,19 +1095,22 @@ int main(int argc, char *argv[]) {
                 setQuantums(q4, getFrontInfo(q4).quantums + 1);
             } else {
                 if (getFrontInfo(q4).cpuTime == getFrontInfo(q4).totalQuantums) {
-                    incrementQueue(q1, q2, q3, q4, 4);
                     struct info temp = getFrontInfo(q4);
+                    incrementQueue(q2, q3, q4, 4);
                     removeLinked(q4);
                     printf("%c%-5d %-6d %-6d %-6d %-6d %-6d %-6d\n", temp.index, temp.indexNumber, temp.priority, temp.arrival, i, temp.ready, temp.cpuTime, (i - (temp.ready + temp.cpuTime)));
                 } else {
                     setQuantums(q4, 0);
-                    incrementQueue(q1, q2, q3, q4, 4);
                     struct info temp = getFrontInfo(q4);
                     removeLinked(q4);
+                    incrementQueue(q2, q3, q4, 4);
                     addToBack(q4, temp);
                 }
             }
+            // debugHelper(q1,q2,q3,q4,i);
+            if(size(q4) == 0 || getFrontInfo(q4).quantums != 0){
             i++;
+            }
         }   
     }
     free(everything);
